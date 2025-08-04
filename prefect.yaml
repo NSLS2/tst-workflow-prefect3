@@ -30,7 +30,7 @@ push:
 pull:
   - prefect.deployments.steps.git_clone:
       repository: https://github.com/nsls2/tst-workflow-prefect3.git
-      branch: main
+      branch: add-tst-workflows
       access_token:
         "{{
         prefect.blocks.secret.deployment-tstworkflowprefect3-end-of-run-workflow-repo-token
