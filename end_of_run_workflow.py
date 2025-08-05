@@ -1,3 +1,5 @@
+import os
+
 from prefect import task, flow, get_run_logger
 from data_validation import data_validation
 from  prefect2_test_flow import hello_world
@@ -14,6 +16,7 @@ def log_completion():
 def end_of_run_workflow(stop_doc):
     uid = stop_doc["run_start"]
     hello_world()
+    print(os.environ.get("TILED_SITE_PROFILES"))
     data_validation(uid, return_state=True)
     # long_flow(iterations=100, sleep_length=10)
     log_completion()
