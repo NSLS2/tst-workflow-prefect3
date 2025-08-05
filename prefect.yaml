@@ -47,6 +47,6 @@ deployments:
       job_variables:
         image: ghcr.io/nsls2/tst-workflow-prefect3:main
         network_mode: host
-        userns: "keep-id:uid=402974,gid=402974"
-        volume: "/nsls2/data/tst/proposals/2025-2:/nsls2/data/tst/proposals/2025-2"
+        userns: "keep-id:uid=402974,gid=402974"  # workflow-tst:workflow-tst
+        volume: "/nsls2/data/tst/proposals:/nsls2/data/tst/proposals"
       name: tst-work-pool-docker
