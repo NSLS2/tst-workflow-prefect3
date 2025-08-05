@@ -49,4 +49,5 @@ deployments:
         network_mode: host
         userns: "keep-id:uid=402974,gid=402974"  # workflow-tst:workflow-tst
         volume: "/nsls2/data/tst/proposals:/nsls2/data/tst/proposals"
+        volume: "/nsls2/software/etc/tiled:/nsls2/software/etc/tiled"
       name: tst-work-pool-docker
