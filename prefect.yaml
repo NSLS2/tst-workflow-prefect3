@@ -45,10 +45,12 @@ deployments:
     schedule: {}
     work_pool:
       job_variables:
-        environment: "TILED_SITE_PROFILES=/nsls2/software/etc/tiled"
+        environment:
+          - TILED_SITE_PROFILES=/nsls2/software/etc/tiled
         image: ghcr.io/nsls2/tst-workflow-prefect3:main
         network_mode: host
         userns: "keep-id:uid=402974,gid=402974"  # workflow-tst:workflow-tst
-        volume: "/nsls2/data/tst/proposals:/nsls2/data/tst/proposals"
-        volume: "/nsls2/software/etc/tiled:/nsls2/software/etc/tiled"
+        volumes:
+          - /nsls2/data/tst/proposals:/nsls2/data/tst/proposals
+          - /nsls2/software/etc/tiled:/nsls2/software/etc/tiled
       name: tst-work-pool-docker
