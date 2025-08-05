@@ -45,7 +45,7 @@ deployments:
     schedule: {}
     work_pool:
       job_variables:
-        environment:
+        env:
           - TILED_SITE_PROFILES=/nsls2/software/etc/tiled
         image: ghcr.io/nsls2/tst-workflow-prefect3:main
         network_mode: host
