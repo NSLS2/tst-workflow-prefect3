@@ -37,7 +37,7 @@ pull:
         }}"
 
 deployments:
-  - name: tst-workflow-prefect3-deploy
+  - name: tst-end-of-run-workflow-docker
     version: null
     description: Deploy the updated Docker image
     entrypoint: end_of_run_workflow.py:end_of_run_workflow
