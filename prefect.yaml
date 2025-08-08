@@ -9,7 +9,7 @@ build:
   - prefect_docker.deployments.steps.build_docker_image:
       id: build-image
       requires: prefect-docker>0.6.0
-      image_name: ghcr.io/junaishima/pixi-container-tests
+      image_name: ghcr.io/nsls2/tst-workflow-prefect3
       tag: "{{ get-commit-hash.stdout }}"
       dockerfile: Dockerfile
       additional_tags:
@@ -22,22 +22,22 @@ push:
       tag: "{{ build-image.tag }}"
       credentials:
         "{{
-        prefect.blocks.docker-registry-credentials.ghcr-jaishima-pixi-container-tests
+        prefect.blocks.docker-registry-credentials.ghcr-nsls2-tst-workflow-prefect3
         }}"
       additional_tags:
         - main
 
 pull:
   - prefect.deployments.steps.git_clone:
-      repository: https://github.com/JunAishima/pixi-container-tests.git
-      branch: main
+      repository: https://github.com/nsls2/tst-workflow-prefect3.git
+      branch: add-tst-workflows
       access_token:
         "{{
-        prefect.blocks.secret.deployment-pixicontainertests-workflow-end-of-run-workflow-repo-token
+        prefect.blocks.secret.deployment-tstworkflowprefect3-end-of-run-workflow-repo-token
         }}"
 
 deployments:
-  - name: test-pixi-container-tests-deploy
+  - name: tst-workflow-prefect3-deploy
     version: null
     description: Deploy the updated Docker image
     entrypoint: end_of_run_workflow.py:end_of_run_workflow
@@ -45,6 +45,13 @@ deployments:
     schedule: {}
     work_pool:
       job_variables:
-        image: ghcr.io/junaishima/pixi-container-tests:main
+        env:
+          TILED_SITE_PROFILES: /nsls2/software/etc/tiled/profiles
+          TILED_API_KEY: "{{ prefect.blocks.secret.tiled-tst-api-key }}"
+        image: ghcr.io/nsls2/tst-workflow-prefect3:main
         network_mode: host
-      name: pixi-container-tests1
+        userns: "keep-id:uid=402974,gid=402974"  # workflow-tst:workflow-tst
+        volumes:
+          - /nsls2/data/tst/proposals:/nsls2/data/tst/proposals
+          - /nsls2/software/etc/tiled:/nsls2/software/etc/tiled
+      name: tst-work-pool-docker
