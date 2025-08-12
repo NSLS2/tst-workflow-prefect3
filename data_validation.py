@@ -7,6 +7,7 @@ from tiled.client import from_profile
 def read_all_streams(uid, beamline_acronym):
     logger = get_run_logger()
     tiled_client = from_profile("nsls2")
+    logger.info(f"Tiled client setup: {beamline_acronym} {uid}")
     run = tiled_client[beamline_acronym]["raw"][uid]
     logger.info(f"Validating uid {run.start['uid']}")
     start_time = ttime.monotonic()
