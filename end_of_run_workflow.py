@@ -14,9 +14,11 @@ def log_completion():
 
 @flow
 def end_of_run_workflow(stop_doc):
+    logger = get_run_logger()
     uid = stop_doc["run_start"]
     hello_world()
-    print(os.environ.get("TILED_SITE_PROFILES"))
+    logger.info(f'API key: {os.environ.get("TILED_API_KEY")}')
+    logger.info(os.environ.get("TILED_SITE_PROFILES"))
     data_validation(uid, return_state=True)
     # long_flow(iterations=100, sleep_length=10)
     log_completion()
