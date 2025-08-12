@@ -31,14 +31,10 @@ pull:
   - prefect.deployments.steps.git_clone:
       repository: https://github.com/nsls2/tst-workflow-prefect3.git
       branch: small-fixes
-      access_token:
-        "{{
-        prefect.blocks.secret.deployment-tstworkflowprefect3-end-of-run-workflow-repo-token
-        }}"
 
 deployments:
   - name: tst-end-of-run-workflow-docker
-    version: null
+    version: 0.1.0
     description: Deploy the updated Docker image
     entrypoint: end_of_run_workflow.py:end_of_run_workflow
     parameters: {}
